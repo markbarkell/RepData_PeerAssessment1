@@ -1,0 +1,8 @@
+# Store not the zip file's output.
+*.csv
+
+# Store not the intermediate output files unless the grading of the assignment
+# requires such
+PA1_template.html
+PA1_template.md
+PA1_template_files/

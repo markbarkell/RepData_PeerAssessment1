@@ -9,8 +9,56 @@ output:
 ## Loading and preprocessing the data
 
 
+In order to load the data file.  One must first unzip the data.  The data file in the repository is using the Zip compression.   It would be possible to talk about the type of algorythim that the Zip compression uses.  However, that would likely just make people board.   So, instead, why don't we just unzip file file using some R code
+```{r}
+unzip("activity.zip")
+```
+
+Well, once the activity.zip file is uncompressed, it may be noticed that there is now an activity.csv file.   The assignment mentioned that one would be able to read that file with the R read.csv() function.  So, it is now time to read the file into a data frame.
+
+```{r}
+fullActivityData <- read.csv("activity.csv")
+```
+
+It seems that the default way of reading the file causes a slight problem.   The date is read in as a factory.  That type of behavior simply won't do.   So, it is quite possible to change the factor into a date and then be happier:
+
+```{r}
+fullActivityData$date <- as.Date(as.character(fullActivityData$date))
+```
+
 
 ## What is mean total number of steps taken per day?
+
+The first part of this question heading has the command: 
+
+> Make a histogram of the total number of steps taken each day
+
+So, this is the grouping and summing of the data in order to make a variable holding the sum on a per day basis.  That variable is *stepSumActivityDataPerDay*.
+
+```{r, results='hide'}
+library(dplyr)
+stepSumActivityDataPerDay <- fullActivityData %>% group_by(date) %>% summarise_each(funs(sum(., na.rm = TRUE)))
+```
+
+Give that such data is now stored.  A histogram can be made to see the data:
+
+```{r}
+hist(stepSumActivityDataPerDay$steps, xlab = "Step Count", main = "Histogram of Step Counts Per Day")
+```
+
+The next part of the assignment commands:
+
+> Calculate and report the **mean** and **median** total number of steps taken per day.
+
+```{r}
+meanStepsPerDay <- mean(stepSumActivityDataPerDay$steps)
+medianStepsPerDay <- median(stepSumActivityDataPerDay$steps)
+```
+
+It is so much fun to report that the **mean count** of steps per day is **`r meanStepsPerDay`**.
+
+It is even more fun to report that the **median steps** per day is **`r medianStepsPerDay`**.
+
 
 
 
