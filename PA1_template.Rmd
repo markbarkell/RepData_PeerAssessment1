@@ -81,12 +81,11 @@ In this section of the assignment the second thing to answer is a question:
 > Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 ```{r}
-maxAvgSteps <- max(meanByIntervalActivityData$interval)
-intervalWithMaxAvgStepsIndex <- which(meanByIntervalActivityData$steps == maxAvgSteps)
+intervalWithMaxAvgStepsIndex <- which(meanByIntervalActivityData$steps == max(meanByIntervalActivityData$steps))
 intervalWithMaxAvgSteps <- meanByIntervalActivityData[intervalWithMaxAvgStepsIndex, "interval"]
 ```
 
-Behold the interval with the maximum number of average steps over the period of measurement:  `r intervalWithMaxAvgSteps`
+Behold the interval with the maximum number of average steps over the period of measurement:  **`r intervalWithMaxAvgSteps$interval`**.
 
 ## Imputing missing values
 
