@@ -3,6 +3,6 @@
 
 # Store not the intermediate output files unless the grading of the assignment
 # requires such
-PA1_template.html
-PA1_template.md
-PA1_template_files/
+# The assignment does need to have this file: PA1_template.html
+# The assignment does need to have this file: PA1_template.md
+# The assignment does need to have this directory: PA1_template_files/
