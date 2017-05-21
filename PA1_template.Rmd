@@ -149,6 +149,15 @@ The **median normalized steps** per day is **`r medianNormStepsPerDay`**.  The p
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
+
+So, there are two commands in this section of the assignment:
+
+> 1. Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+> 2. Make a panel plot containing a time series plot (i.e. type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).  
+
+The follow code fullfills both commands:
+
+
 ```{r}
 library(dplyr)
 
@@ -169,7 +178,7 @@ for(dayType in c("Weekday", "Weekend")) {
   plot(
     wadCurrent$interval, 
     wadCurrent$steps, 
-    main = paste(dayType, "Average Steps of 5-min Intervals"), 
+    main = paste(dayType, "Steps/Intervals"), 
     type = "l", 
     ylab = "average steps", 
     xlab = "ordered daily interval")
