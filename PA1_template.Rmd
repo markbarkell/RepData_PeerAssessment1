@@ -148,3 +148,35 @@ The **median normalized steps** per day is **`r medianNormStepsPerDay`**.  The p
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+```{r}
+library(dplyr)
+
+wad <- fullActivityData
+wad$dayType <- as.factor(sapply(wad$date, function(d) {
+  if (grepl("^S", weekdays(d))) { "Weekend" } else { "Weekday" }
+}))
+
+
+
+wadByIntervalAndDayType <- wad[,c("steps", "interval", "dayType")]
+wadByIntervalAndDayType <- wadByIntervalAndDayType %>% group_by(interval,dayType) %>% summarise_each(funs(mean(., na.rm = TRUE)))
+
+par(mfcol = c(1,2))
+
+for(dayType in c("Weekday", "Weekend")) {
+  wadCurrent <- wadByIntervalAndDayType[as.character(wadByIntervalAndDayType$dayType) == dayType,] 
+  plot(
+    wadCurrent$interval, 
+    wadCurrent$steps, 
+    main = paste(dayType, "Average Steps of 5-min Intervals"), 
+    type = "l", 
+    ylab = "average steps", 
+    xlab = "ordered daily interval")
+}
+
+
+```
+
+
+```{r}
