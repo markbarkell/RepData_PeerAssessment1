@@ -137,8 +137,8 @@ hist(normStepPerDay$steps, xlab = "Step Count", main = "Hist Step/Day Mean Corre
 Now, the thing about the above graph, is, that it really only tells part of the story to understand what is going on with respect to the mean and median.  More calculation is needing to be done:
 
 ```{r}
-meanNormStepsPerDay <- mean(normStepPerDay$steps)
-medianNormStepsPerDay <- median(normStepPerDay$steps)
+meanNormStepsPerDay <- as.integer(mean(normStepPerDay$steps))
+medianNormStepsPerDay <- as.integer(median(normStepPerDay$steps))
 ```
 
 The **mean normalized count** of steps per day is **`r meanNormStepsPerDay`**.   The previous estimate for the non-normalized data was `r meanStepsPerDay`.  So, yes, they differ.
