@@ -171,7 +171,7 @@ wad$dayType <- as.factor(sapply(wad$date, function(d) {
 wadByIntervalAndDayType <- wad[,c("steps", "interval", "dayType")]
 wadByIntervalAndDayType <- wadByIntervalAndDayType %>% group_by(interval,dayType) %>% summarise_each(funs(mean(., na.rm = TRUE)))
 
-par(mfcol = c(1,2))
+par(mfrow = c(2,1))
 
 for(dayType in c("Weekday", "Weekend")) {
   wadCurrent <- wadByIntervalAndDayType[as.character(wadByIntervalAndDayType$dayType) == dayType,] 
