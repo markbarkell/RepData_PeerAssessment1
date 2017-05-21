@@ -89,6 +89,62 @@ Behold the interval with the maximum number of average steps over the period of 
 
 ## Imputing missing values
 
+The first command of the assignment with reguard to this section is:
+
+> Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+
+```{r}
+totalCountOfMissingSteps <- sum(is.na(fullActivityData$steps))
+```
+
+The total number of missing step counts is **`r totalCountOfMissingSteps`**.
+
+The next command of the assignment is:
+
+> Devise a strategy for filling in all of the missing values in the dataset.  The strategy does not need to be sophisticated.  For example, you could use the mean/media for that day, or the mean for that 5-minute interval, etc.
+
+Using the following R code, the NA step values are converted to the *mean* for the given interval:
+
+```{r}
+
+indeciesOfNASteps <- which(is.na(fullActivityData$steps))
+
+normalizedFullActivityData <- fullActivityData
+
+for(i in indeciesOfNASteps) {
+  normalizedFullActivityData[i, "steps"] <- mean(fullActivityData[fullActivityData$interval == normalizedFullActivityData[i, "interval"], "steps"], na.rm = TRUE)
+}
+
+```
+
+The above code fullfills the assignment's command:
+
+> Create a new dataset that is equal to the orginal dataset but with the missing data filled in.
+
+Now, there is the next command in the assignment:
+
+> Make a histogram of the total number of steps taken each day and Calculate and report the **mean** and **median** total number of steps taken per day.  Do these values differ from the estimates from the first part of the assignment?  What is the impact of imputing missing data on the estimates of the total daily number of steps?
+
+```{r}
+
+library(dplyr)
+
+normStepPerDay <- normalizedFullActivityData %>% group_by(date) %>% summarise_each(funs(sum(.,na.rm = TRUE)))
+
+hist(normStepPerDay$steps, xlab = "Step Count", main = "Hist Step/Day Mean Correction")
+```
+
+Now, the thing about the above graph, is, that it really only tells part of the story to understand what is going on with respect to the mean and median.  More calculation is needing to be done:
+
+```{r}
+meanNormStepsPerDay <- mean(normStepPerDay$steps)
+medianNormStepsPerDay <- median(normStepPerDay$steps)
+```
+
+The **mean normalized count** of steps per day is **`r meanNormStepsPerDay`**.   The previous estimate for the non-normalized data was `r meanStepsPerDay`.  So, yes, they differ.
+
+The **median normalized steps** per day is **`r medianNormStepsPerDay`**.  The previous estimate for the non-normalized data was `r medianStepsPerDay`.  So, yes, they differ.
+
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
