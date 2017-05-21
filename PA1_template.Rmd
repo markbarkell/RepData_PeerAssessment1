@@ -103,7 +103,7 @@ The next command of the assignment is:
 
 > Devise a strategy for filling in all of the missing values in the dataset.  The strategy does not need to be sophisticated.  For example, you could use the mean/media for that day, or the mean for that 5-minute interval, etc.
 
-Using the following R code, the NA step values are converted to the *mean* for the given interval:
+Using the following R code, the NA step values are converted to the *median* for the given interval:
 
 ```{r}
 
@@ -112,7 +112,7 @@ indeciesOfNASteps <- which(is.na(fullActivityData$steps))
 normalizedFullActivityData <- fullActivityData
 
 for(i in indeciesOfNASteps) {
-  normalizedFullActivityData[i, "steps"] <- mean(fullActivityData[fullActivityData$interval == normalizedFullActivityData[i, "interval"], "steps"], na.rm = TRUE)
+  normalizedFullActivityData[i, "steps"] <- median(fullActivityData[fullActivityData$interval == normalizedFullActivityData[i, "interval"], "steps"], na.rm = TRUE)
 }
 
 ```
@@ -141,9 +141,9 @@ meanNormStepsPerDay <- as.integer(mean(normStepPerDay$steps))
 medianNormStepsPerDay <- as.integer(median(normStepPerDay$steps))
 ```
 
-The **mean normalized count** of steps per day is **`r meanNormStepsPerDay`**.   The previous estimate for the non-normalized data was `r meanStepsPerDay`.  So, yes, they differ.
+The **mean normalized count** of steps per day is **`r meanNormStepsPerDay`**.   The previous estimate for the non-normalized data was `r meanStepsPerDay`.  So, yes, they differ seemly slightly.
 
-The **median normalized steps** per day is **`r medianNormStepsPerDay`**.  The previous estimate for the non-normalized data was `r medianStepsPerDay`.  So, yes, they differ.
+The **median normalized steps** per day is **`r medianNormStepsPerDay`**.  The previous estimate for the non-normalized data was `r medianStepsPerDay`.  So, they don't differ.
 
 
 
